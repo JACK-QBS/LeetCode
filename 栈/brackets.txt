@@ -1,0 +1,71 @@
+
+20. 有效的括号
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+有效字符串需满足：
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+注意空字符串可被认为是有效字符串。
+
+示例 4:
+输入: "([)]"
+输出: false
+
+示例 5:
+输入: "{[]}"
+输出: true
+
+class Solution {
+    public boolean isValid(String s) {
+        // 1、准备好一个放 Character 类型的栈
+        Deque<Character> stack = new LinkedList<>();
+        // 2、遍历 s 的每一个字符
+        char[] charArray = s.toCharArray();
+        for (char c : charArray) {
+            switch (c) {
+                case '(' :
+                case '[' :
+                case '{' :
+                // 因为没有 break,所以 无论如何 ({[ 都会执行
+                stack.push(c);
+                break;
+                default: {
+                    // 一定是右括号
+                    if (stack.isEmpty()) {
+                        // 右括号多了
+                        return false;
+                    }
+                    // 否则取出栈顶元素
+                    char left = stack.pop();
+                    // 进行左右括号的比较
+                    if (!compareBracked(left,c)) {
+                        // 左括号和右括号不匹配
+                        return false;
+                    }
+                }
+            }
+        }
+        if (stack.isEmpty()) {
+            return true;
+        } else {
+            // 左括号多了
+            return false;
+        }
+    }
+
+    private boolean compareBracked(char left,char right) {
+        if (left == '(' && right == ')') {
+            return true;
+        }
+        if (left == '[' && right == ']') {
+            return true;
+        }
+        if (left == '{' && right == '}') {
+            return true;
+        }
+        return false;
+    }
+}
+
+
+
+
