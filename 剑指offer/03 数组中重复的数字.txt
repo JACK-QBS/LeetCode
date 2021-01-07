@@ -1,0 +1,20 @@
+
+当 nums[i] 的值与 i 值不相等时，就在数组中找到以 nums[i] 为下标的数，判断：
+nums[i] 的值与 以 nums[i] 为下标的值是否相等，相等返回 nums[i]，不相等则交换两个数
+
+class Solution {
+    public int findRepeatNumber(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            while (i != nums[i]) {
+                if (nums[i] == nums[nums[i]]) {
+                    return nums[i];
+                }
+                //交换
+                int tmp = nums[nums[i]];
+                nums[nums[i]] = nums[i];
+                nums[i] = tmp;
+            }
+        }
+        return -1;
+    }
+}
