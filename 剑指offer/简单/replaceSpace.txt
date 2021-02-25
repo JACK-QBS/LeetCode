@@ -1,0 +1,19 @@
+class Solution {
+    public String replaceSpace(String s) {
+        int length = s.length();
+        char[] ch = new char[length*3];
+        int count = 0;//表示有多少个字符
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            if (c == ' ') {
+                ch[count++] = '%';
+                ch[count++] = '2';
+                ch[count++] = '0';
+            } else {
+                ch[count++] = c;
+            }
+        }
+        String newStr = new String(ch,0,count);
+        return newStr;
+    }
+}
