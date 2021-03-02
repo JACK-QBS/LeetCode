@@ -1,0 +1,22 @@
+class Solution {
+    public int[] exchange(int[] nums) {
+        //奇数放在头指针的位置，偶数放到尾指针的位置
+        int start = 0;//头指针
+        int end = nums.length - 1;//尾指针
+        while (start < end) {
+            if ((nums[start] & 1) != 0) {
+                start ++;
+                continue;
+            }
+            if ((nums[end] & 1) != 1) {
+                end --;
+                continue;
+            }
+            //交换两个数字
+            int tmp = nums[start];
+            nums[start++] = nums[end];
+            nums[end--] = tmp;
+        }
+        return nums;
+    }
+}
