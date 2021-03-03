@@ -1,0 +1,20 @@
+class Solution {
+    public String reverseWords(String s) {
+        //句子逆序遍历，将单个单词保存到新字符串中，返回字符串
+        s.trim();//删除首尾空格
+        int i = s.length() - 1;//单词首字母
+        int j = i;//单词尾字母
+        StringBuilder res = new StringBuilder();//保存单词
+        while (i >= 0) {
+            while(i >= 0 && s.charAt(i) != ' ') {
+                i--;
+            }
+            res.append(s.substring(i+1,j+1)+" ");//添加单词
+            while (i >= 0 && s.charAt(i) == ' '){
+                i--;
+            }
+            j = i;//j指向下个单词的尾字符
+        }
+        return res.toString().trim();
+    }
+}
