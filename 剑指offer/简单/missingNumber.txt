@@ -1,0 +1,22 @@
+//定义两个指针，一个从前往后遍历数组，一个从后往前遍历数组，当满足指针当前值和数组中对应指针下标的值相等时，继续遍历。如果不相等了，判断是哪个指针不相等，并返回那个指针。
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        int start = 0;
+        int end = nums.length;
+        while (start < end) {
+            if (nums[start] == start && nums[end-1] == end) {
+                start++;
+                end--;
+            } else {
+                if (nums[start] != start) {
+                    return start;
+                } else if (nums[end-1] != end) {
+                    return end;
+                }
+            }
+        }
+        return 1;
+    }
+}
+
