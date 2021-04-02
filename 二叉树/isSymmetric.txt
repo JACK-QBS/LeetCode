@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //对称二叉树
+    public boolean isSymmetric(TreeNode root) {
+        //空树
+        if (root == null) {
+            return true;
+        }
+        return isMirrorTree(root.left,root.right);
+    }
+
+    //判断是否对称
+    public boolean isMirrorTree(TreeNode p, TreeNode q) {
+        //p,q分别代表左右子树
+        if (p == null && q == null) {
+            return true;
+        }
+        /**
+         * p == null     q != null
+         * p != null     q == null
+         */
+        if (p == null || q == null) {
+            return false;
+        }
+        //根值 + 左子树 + 右子树 是否相等 
+        return p.val == q.val && isMirrorTree(p.left,q.right) && isMirrorTree(p.right,q.left);
+    }
+}
