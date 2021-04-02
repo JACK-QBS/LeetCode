@@ -1,0 +1,64 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    /**
+     * 解题思路：
+     * 1、在 s 树中，找 t 这个结点
+     * 2、如果没找到，return false
+     *   如果找到了，判断以 该结点为根的树 和 以t为根的树 是否相等
+     *
+     *   不相等了就在 s 整棵树里继续找 t 这个结点（一颗树中可能有多个 t 和相等的结点）
+     *
+     */
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        return search(s,t);
+    }
+
+    //找 t 这个结点
+    public boolean search(TreeNode root,TreeNode t) {
+        //空树
+        if (root == null) {
+            return false;
+        }
+        //根结点就是要找的 t
+        if (root.val == t.val) {
+            //判断 root树是否与 t树相等
+            if (isSameTree(root,t)) {
+                return true;
+            }
+        }
+        //在 左子树 中找 t
+        if (search(root.left,t)) {
+            return true;
+        }
+        //在 右子树 中找 t
+        return search(root.right,t);
+    }
+
+    //判断两颗树是否相等
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        //1、p是空树，q是空树 -> 相等
+        if (p == null && q == null) {
+            return true;
+        }
+        //2、p是空树，q不是空树
+        //  p不是空树，q是空树 -> 不想等
+        if (p == null || q == null) {
+            return false;
+        }
+        return p.val == q.val && isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+    }
+}
