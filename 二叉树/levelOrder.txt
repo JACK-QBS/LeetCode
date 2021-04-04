@@ -1,0 +1,59 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+import java.util.*;
+class Solution {
+    //打包 层次 和 结点
+    static class NL{
+        int level;
+        TreeNode node;
+        NL(int level,TreeNode node) {
+            this.level = level;
+            this.node = node;
+        }
+    }
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new LinkedList<>();
+        if (root == null) {
+            //空树直接返回
+            return list;
+        }
+
+        Queue<NL> queue = new LinkedList<>();
+        queue.add(new NL(0,root));
+
+        while (!queue.isEmpty()) {
+            //取出队首元素
+            NL nl = queue.remove();
+            //拆包
+            int level = nl.level;
+            TreeNode node = nl.node;
+
+            if (level == list.size()) {
+                list.add(new ArrayList());
+            }
+            List<Integer> innerList = list.get(level);
+            innerList.add(node.val);
+            //继续层序遍历
+            if (node.left != null) {
+                queue.add(new NL(level+1,node.left));
+            }
+            if (node.right != null) {
+                queue.add(new NL(level+1,node.right));
+            }
+        }
+        return list;
+    }
+}
