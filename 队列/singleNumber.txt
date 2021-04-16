@@ -1,0 +1,20 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+        Map<Integer,Integer> map = new TreeMap<>();
+        //将数组中各个元素和他出现的次数一起保存在map中
+        for (int key : nums) {
+            int count = map.getOrDefault(key,0);
+            count++;
+            map.put(key,count);
+        }
+        //遍历map,找到count=1的数返回
+        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
+            int key = entry.getKey();
+            int count = entry.getValue();
+            if (count == 1) {
+                return key;
+            }
+        }
+        return -1;
+    }
+}
