@@ -1,0 +1,30 @@
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copySimpleList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node newHead = new Node(-1);//复制新链表的傀儡头节点
+        Node newCur = newHead;//遍历新复制的链表
+        Node cur = head;//遍历需要复制的链表
+        while (cur != null) {
+            Node newNode = new Node(cur.val);//新结点
+            newCur.next = newNode;
+            newCur = newCur;
+            cur = cur.next;
+        }
+        return newHead.next;
+    }
+}
