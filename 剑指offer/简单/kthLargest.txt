@@ -1,0 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+ /*
+ 二叉搜索树的中序遍历是有序的，从小到大
+ 根据题目要求，要第 K 大，则反过来遍历
+ 遍历： 右子树、根、左子树
+ */
+class Solution {
+    int count = 0;//计数
+    int res = 0;//结点的值
+    public int kthLargest(TreeNode root, int k) {
+        count = k;
+        dfs(root);
+        return res;
+    }
+    public void dfs(TreeNode root) {
+        if (root == null) return;
+        dfs(root.right);
+        if (count == 0) return;
+        if (--count == 0) res = root.val;
+        dfs(root.left);
+    }
+}
