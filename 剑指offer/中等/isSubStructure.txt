@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private TreeNode B;
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        if (B == null) {
+            return false;
+        }
+        this.B = B;
+        return dfs(A);
+    }
+    //前序遍历：找到 A 中和 B 相等的节点
+    public boolean dfs(TreeNode A) {
+        if (A == null) {
+            return false;
+        }
+        if (A.val == B.val) {
+            //判断以两个相等节点为根的子树是否相等
+            if (equals(A,B)) {
+                return true;
+            }
+        }
+        //继续从 A 的左右子树中找与 B　相等的节点
+        return dfs(A.left) || dfs(A.right);
+    }
+    //判断两颗树是否相等
+    public boolean equals(TreeNode A,TreeNode B) {
+        if (B == null) {
+            return true;
+        }
+        if (A == null || A.val != B.val) {
+            return false;
+        }
+        return equals(A.left,B.left) && equals(A.right,B.right);
+    }
+
+
+
+
+}
