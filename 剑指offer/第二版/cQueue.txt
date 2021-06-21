@@ -1,0 +1,36 @@
+class CQueue {
+    //栈1：存储刚进来的元素
+    Deque<Integer> stack1;
+    //栈2：调换栈1的元素顺序，满足队列的顺序
+    Deque<Integer> stack2;
+
+    public CQueue() {
+        stack1 = new LinkedList<>();
+        stack2 = new LinkedList<>();
+    }
+    
+    public void appendTail(int value) {
+        stack1.push(value);
+    }
+    
+    public int deleteHead() {
+        if (!stack2.isEmpty()) {
+            return stack2.pop();
+        }
+        if (stack1.isEmpty()) {
+            //两个栈都为空
+            return -1;
+        }
+        while (!stack1.isEmpty()) {
+            stack2.push(stack1.pop());
+        }
+        return stack2.pop();
+    }
+}
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue obj = new CQueue();
+ * obj.appendTail(value);
+ * int param_2 = obj.deleteHead();
+ */
