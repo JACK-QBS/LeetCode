@@ -1,0 +1,11 @@
+class Solution {
+    public int findRepeatNumber(int[] nums) {
+        //利用set，实现集合中去重
+        Set<Integer> dic = new HashSet<>();
+        for (int num : nums) {
+            if (dic.contains(num)) return num;
+            dic.add(num);
+        }
+        return -1;
+    }
+}
