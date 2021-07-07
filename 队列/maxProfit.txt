@@ -1,0 +1,17 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        //保存数组中最小的值
+        int minNum = prices[0];
+        //当前数值之前的最大利润
+        int dp = 0;
+        for (int price : prices) {
+            minNum = Math.min(price,minNum);
+            //当前的最大利润 = 前一个数最大利润 和 当前数-最小值 比较
+            dp = Math.max(dp,price - minNum);
+        }
+        return dp;
+    }
+}
