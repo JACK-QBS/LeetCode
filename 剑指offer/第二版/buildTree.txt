@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int[] preorder;//前序遍历数组集合
+    Map<Integer,Integer> hashMap = new HashMap<>();//中序遍历集合
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        this.preorder = preorder;
+        //将中序集合加入哈希表
+        for (int i = 0;i < preorder.length;i++) {
+            hashMap.put(inorder[i],i);
+        }
+        return recur(0,0,inorder.length-1);
+    }
+
+    //root：前序遍历的根节点  left：中序遍历
+    public TreeNode recur(int root,int left,int right) {
+        if (left > right) {
+            return null;
+        }
+        //当前的根节点
+        TreeNode node = new TreeNode(preorder[root]);
+        //获取中序遍历中跟该根节点的位置
+        int index = hashMap.get(preorder[root]);
+        //开启左子树递归
+        node.left = recur(root+1,left,index-1);
+        //开启右子树递归
+        node.right = recur(root+index-left+1,index+1,right);
+        return node;
+    }
+}
